@@ -85,10 +85,26 @@ func init() {
 
 }
 
-func GetVessels() []Vessel {
+func GetAllVessels() []Vessel {
 	return vessels
 }
 
-func GetContainers() []Container {
+func GetAllContainers() []Container {
 	return containers
+}
+func GetContainer(id uint64) Container {
+	for _, c := range containers {
+		if c.ID == id {
+			return c
+		}
+	}
+	return Container{}
+}
+func GetVessel(id uint64) Vessel {
+	for _, v := range vessels {
+		if v.ID == id {
+			return v
+		}
+	}
+	return Vessel{}
 }

@@ -18,5 +18,7 @@ docker-push:
 	docker push luebken/api-logistics:latest
 
 test:
+	curl localhost:8090/vessels?id=1001 | jq .
 	curl localhost:8090/vessels | jq .
+	curl localhost:8090/containers?id=2001 | jq .
 	curl localhost:8090/containers | jq .
