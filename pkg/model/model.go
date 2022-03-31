@@ -1,5 +1,7 @@
 package model
 
+import "fmt"
+
 type Vessels struct {
 	Vessels []Vessel `json:"vessels"`
 }
@@ -88,7 +90,6 @@ func init() {
 func GetAllVessels() []Vessel {
 	return vessels
 }
-
 func GetAllContainers() []Container {
 	return containers
 }
@@ -107,4 +108,16 @@ func GetVessel(id uint64) Vessel {
 		}
 	}
 	return Vessel{}
+}
+func AddOrUpdateVessel(newVessel Vessel) {
+	v := GetVessel(newVessel.ID)
+	if v.ID == newVessel.ID {
+		fmt.Printf("update Vessel %+v\n", newVessel)
+		v.Description = newVessel.Description
+		v.Lat = newVessel.Lat
+		v.Lng = newVessel.Lng
+	} else {
+		fmt.Printf("add Vessel %+v\n", newVessel)
+		vessels = append(vessels, newVessel)
+	}
 }

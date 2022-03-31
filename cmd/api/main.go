@@ -18,6 +18,23 @@ func main() {
 }
 
 func vessels(w http.ResponseWriter, req *http.Request) {
+	method := req.Method
+	if method == "GET" {
+		handleVesselsGet(w, req)
+	} else {
+		handleVesselsPost(w, req)
+	}
+}
+func handleVesselsPost(w http.ResponseWriter, req *http.Request) {
+	var v model.Vessel
+	err := json.NewDecoder(req.Body).Decode(&v)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	model.AddOrUpdateVessel(v)
+}
+func handleVesselsGet(w http.ResponseWriter, req *http.Request) {
 	idParam := req.URL.Query().Get("id")
 	id, _ := strconv.ParseUint(idParam, 10, 64)
 	if id != 0 {
@@ -33,6 +50,7 @@ func vessels(w http.ResponseWriter, req *http.Request) {
 		json.NewEncoder(w).Encode(model.GetAllVessels())
 	}
 }
+
 func containers(w http.ResponseWriter, req *http.Request) {
 	idParam := req.URL.Query().Get("id")
 	id, _ := strconv.ParseUint(idParam, 10, 64)
