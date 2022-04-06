@@ -40,6 +40,7 @@ func handleVesselsGet(w http.ResponseWriter, req *http.Request) {
 	if id != 0 {
 		fmt.Printf("request vessel for id %d\n", id)
 		v := model.GetVessel(id)
+		fmt.Printf("found vessel: %+v\n", v)
 		if v.ID != 0 {
 			json.NewEncoder(w).Encode(v)
 		} else {
@@ -57,6 +58,7 @@ func containers(w http.ResponseWriter, req *http.Request) {
 	if id != 0 {
 		fmt.Printf("request containers for id %d\n", id)
 		c := model.GetContainer(id)
+		fmt.Printf("found container: %+v\n", c)
 		if c.ID != 0 {
 			json.NewEncoder(w).Encode(c)
 		} else {
